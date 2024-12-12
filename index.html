@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Astronomi SES</title>
+    <style>
+
+	html {
+    scroll-behavior: smooth;
+}
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0b1a3a;
+            color: #f5f5f5;
+        }
+        header {
+            background: #0e244e;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            color: #e0e0e0;
+        }
+        nav {
+            background: #09142b;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #f5f5f5;
+            text-decoration: none;
+            padding: 8px 16px;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #00bcd4;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        .contact {
+            margin-top: 50px;
+	}
+	.projects {
+	     margin-top: 80px;
+
+        }
+        footer {
+            background: #09142b;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 60;
+            width: 100%;
+            font-size: 0.8em;
+        }
+        .weather-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #1d2d56;
+            border-radius: 8px;
+            color: #f5f5f5;
+            display: none;
+	}
+	.instagram-link {
+    	    color: #E4A0F7;
+   	    text-decoration: none; /* Menghilangkan garis bawah */
+    	    font-weight: bold; /* Menebalkan teks */
+	}
+
+	.instagram-link:hover {
+    	    color: #E4A0F7;
+	}
+	.email-link {
+    	    color: #2F77FF;
+   	    text-decoration: none; /* Menghilangkan garis bawah */
+    	    font-weight: bold; /* Menebalkan teks */
+	}
+
+	.email-link:hover {
+    	    color: #2F77FF;
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>WELCOME TO THE ASTRONOMY BLOG SES </h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#contact">Contact</a>
+	<a href="#projects">Projects</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container id="home">
+    <h2> EXPLORE THE UNIVERSE</h2>
+    <img src="Astronaut1.jpg" alt="Astronaut" style="width: 100%; max-width: 500px;">
+    
+        <!-- Weather Section -->
+        <h3>Check Weather Conditions</h3>
+        <form id="weatherForm">
+            <input type="date" id="dateInput" required>
+            <input type="text" id="cityInput" placeholder="Enter city name" required>
+            <button type="submit">Check Weather</button>
+        </form>
+	    <small>This weather data is provided by <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a></small>
+
+
+        <div id="weatherResult" class="weather-result">
+            <h4>Cuaca pada <span id="weatherDate"></span>:</h4>
+            <p id="weatherDescription"></p>
+            <p>Temperatur: <span id="weatherTemp"></span>&#8451;</p>
+            <p>Kecepatan Angin: <span id="weatherWind"></span> m/s</p>
+
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact" id="contact">
+            <h2>CONTACT ME</h2>
+	    <p><a href="https://www.instagram.com/shesan02_/" class="instagram-link" target="_blank">Instagram</a></p>
+	    <p><a href="mailto:angelynesanamasse@gmail.com" class="email-link">Email</a></p>
+
+</div>
+
+	<!-- Projects Section -->
+        <div class="projects" id="projects">
+	    <h2>MY PROJECTS</h2>
+	    <p>Konten masih dalam proses pengembangan, stay tuned!</p>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Blog Astronomi SES | Semua Hak Dilindungi</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const city = document.getElementById('cityInput').value;
+            const date = document.getElementById('dateInput').value;
+
+            const apiKey = 'ac07e2778b01748b65e42a8290181978'; // Ganti dengan API Key OpenWeatherMap
+           const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const weatherResult = document.getElementById('weatherResult');
+                    const weatherDate = document.getElementById('weatherDate');
+                    const weatherDescription = document.getElementById('weatherDescription');
+                    const weatherTemp = document.getElementById('weatherTemp');
+                    const weatherWind = document.getElementById('weatherWind');
+
+                    weatherDate.textContent = date;
+                    weatherDescription.textContent = data.weather[0].description;
+                    weatherTemp.textContent = data.main.temp;
+                    weatherWind.textContent = data.wind.speed;
+
+                    weatherResult.style.display = 'block'; // Menampilkan hasil cuaca
+                })
+                .catch(error => {
+                    alert('Gagal mengambil data cuaca. Pastikan kota yang dimasukkan benar.');
+                });
+        });
+    </script>
+
+
+</body>
+</html>
